@@ -1,5 +1,7 @@
 package com.river.devicesmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,7 +18,8 @@ public class Account {
     private String email;
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "account_role", joinColumns = {
             @JoinColumn(name = "accountid", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "roleid", referencedColumnName = "id")})
