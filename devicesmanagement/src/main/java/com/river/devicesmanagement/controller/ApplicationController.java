@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,7 +20,12 @@ public class ApplicationController {
     @Autowired
     AccountService accountService;
 
+<<<<<<< HEAD
     @RequestMapping(value = "/accounts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+=======
+    @RequestMapping(value = "/accounts", method = RequestMethod.GET)
+    @ResponseBody
+>>>>>>> 0263ac27fc03fd1b70c188ebdba0ddf4e93c584e
     public ResponseEntity<List<Account>> findAllAccount() {
         List<Account> accounts = accountService.findAllAccount();
         if (accounts.isEmpty()) {

@@ -1,5 +1,7 @@
 package com.river.devicesmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,7 +13,9 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String rolename;
-    @ManyToMany(mappedBy = "roles")
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<Account> account;
 
     public static long getSerialVersionUID() {
