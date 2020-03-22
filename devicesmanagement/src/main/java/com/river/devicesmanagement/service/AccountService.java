@@ -15,4 +15,6 @@ public interface AccountService {
     Optional<Account> findById(int id);
 
     void save(Account account);
+
+    void deleteById(Integer id);
 }

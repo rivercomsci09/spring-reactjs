@@ -17,29 +17,5 @@ import java.util.Optional;
 
 @RestController
 public class ApplicationController {
-    @Autowired
-    AccountService accountService;
 
-<<<<<<< HEAD
-    @RequestMapping(value = "/accounts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-=======
-    @RequestMapping(value = "/accounts", method = RequestMethod.GET)
-    @ResponseBody
->>>>>>> 0263ac27fc03fd1b70c188ebdba0ddf4e93c584e
-    public ResponseEntity<List<Account>> findAllAccount() {
-        List<Account> accounts = accountService.findAllAccount();
-        if (accounts.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(accounts, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/accounts/{id}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Account> getAccountById(@PathVariable("id") Integer id) {
-        Optional<Account> account = accountService.findById(id);
-        if (!account.isPresent()) {
-            return new ResponseEntity<>(account.get(),HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(account.get(), HttpStatus.OK);
-    }
 }

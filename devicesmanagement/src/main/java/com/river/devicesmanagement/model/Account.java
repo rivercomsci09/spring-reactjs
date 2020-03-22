@@ -19,7 +19,7 @@ public class Account {
     private String password;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "account_role", joinColumns = {
             @JoinColumn(name = "accountid", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "roleid", referencedColumnName = "id")})

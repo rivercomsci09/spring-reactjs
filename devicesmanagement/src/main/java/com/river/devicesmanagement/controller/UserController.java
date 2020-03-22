@@ -17,4 +17,6 @@ public class UserController {
     public String adminApi(){
         return "Returned successfully from Admin API";
     }
+
+
 }
