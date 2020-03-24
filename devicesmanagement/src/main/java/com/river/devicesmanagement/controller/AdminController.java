@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping(value = "/api")
 public class AdminController {
     @Autowired
     AccountService accountService;

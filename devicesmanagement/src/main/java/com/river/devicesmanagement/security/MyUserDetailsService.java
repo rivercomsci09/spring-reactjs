@@ -28,14 +28,13 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Account> account = accountService.findByUsername(username);
-        if (account.isPresent()) {
+        if (!account.isPresent()) {
             throw new UsernameNotFoundException("User not found");
         }
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
         Set<Role> roles = account.get().getRoles();
         for (Role role : roles) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getRolename()));
-            System.out.println(grantedAuthorities);
         }
 
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(account.get().getUsername(), account.get().getPassword(),
