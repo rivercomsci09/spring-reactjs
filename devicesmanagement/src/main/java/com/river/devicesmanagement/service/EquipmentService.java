@@ -6,15 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EquipmentService {
-    void save(Equipment equipment);
-
-    void save(Equipment equiment, int id);
-
     List<Equipment> findAllEquipment();
 
-    Optional<Equipment> findById(int id);
+    Optional<Equipment> findById(Integer id);
 
-    void deleteById(Integer id);
+    void save(Equipment equipment);
 
-    List<Object[]> getEquipment();
+    void remove(Equipment equipment);
+
 }

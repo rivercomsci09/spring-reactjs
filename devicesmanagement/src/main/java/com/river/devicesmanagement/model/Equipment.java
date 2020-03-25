@@ -13,7 +13,7 @@ public class Equipment {
     private String description;
     private boolean status;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "accountid")
     private Account account;
 

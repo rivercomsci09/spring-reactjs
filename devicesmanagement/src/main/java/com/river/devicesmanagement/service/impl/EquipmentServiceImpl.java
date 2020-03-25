@@ -11,8 +11,22 @@ import java.util.Optional;
 
 @Service
 public class EquipmentServiceImpl implements EquipmentService {
+    private EquipmentRepository equipmentRepository;
+
     @Autowired
-    EquipmentRepository equipmentRepository;
+    public EquipmentServiceImpl(EquipmentRepository equipmentRepository) {
+        this.equipmentRepository = equipmentRepository;
+    }
+
+    @Override
+    public List<Equipment> findAllEquipment() {
+        return (List<Equipment>) equipmentRepository.findAll();
+    }
+
+    @Override
+    public Optional<Equipment> findById(Integer id) {
+        return equipmentRepository.findById(id);
+    }
 
     @Override
     public void save(Equipment equipment) {
@@ -20,28 +34,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public void save(Equipment equiment, int id) {
-        equiment.setId(id);
-        equipmentRepository.save(equiment);
-    }
-
-    @Override
-    public List<Equipment> findAllEquipment() {
-        return equipmentRepository.findAll();
-    }
-
-    @Override
-    public Optional<Equipment> findById(int id) {
-        return equipmentRepository.findById(id);
-    }
-
-    @Override
-    public void deleteById(Integer id) {
-        equipmentRepository.deleteById(id);
-    }
-
-    @Override
-    public List<Object[]> getEquipment() {
-        return equipmentRepository.getEquipment();
+    public void remove(Equipment equipment) {
+        equipmentRepository.delete(equipment);
     }
 }

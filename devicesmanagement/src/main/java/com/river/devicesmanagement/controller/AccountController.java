@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api")
-public class AdminController {
+public class AccountController {
     @Autowired
     AccountService accountService;
 
@@ -38,14 +38,14 @@ public class AdminController {
         return new ResponseEntity<>(account.get(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/createaccount",method = RequestMethod.POST)
+    @RequestMapping(value = "/accounts",method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Account> createAccount(@Valid @RequestBody Account account) {
         accountService.save(account);
         return new ResponseEntity<>(account, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/deleteaccount/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/accounts/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity<HttpStatus> deleteAccount(@PathVariable("id") Integer id) {
         try {

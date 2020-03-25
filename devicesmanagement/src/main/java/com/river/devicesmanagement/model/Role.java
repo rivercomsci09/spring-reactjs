@@ -15,7 +15,7 @@ public class Role {
     private String rolename;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Set<Account> account;
 
     public static long getSerialVersionUID() {

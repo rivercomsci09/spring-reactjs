@@ -19,14 +19,14 @@ public class Account {
     private String password;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "account_role", joinColumns = {
             @JoinColumn(name = "accountid", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "roleid", referencedColumnName = "id")})
     private Set<Role> roles = new HashSet<Role>();
 
-
-    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "account", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Equipment> equipment = new ArrayList<Equipment>();
 
     public int getId() {
