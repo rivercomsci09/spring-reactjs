@@ -28,6 +28,7 @@ class Login extends Component {
         // debugger;
         fetch('http://localhost:8080/login', {
             method: 'post',
+            action: '/perform_login',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

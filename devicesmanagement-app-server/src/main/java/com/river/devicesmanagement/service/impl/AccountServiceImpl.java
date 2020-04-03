@@ -53,17 +53,26 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.getAccount();
     }
 
+    //    @Override
+//    public void save(Account account) {
+//        account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
+//        accountRepository.save(account);
+//        Role userRole = roleRepository.findByRolename("USER");
+//        account.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+//        accountRepository.save(account);
+//    }
     @Override
-    public void save(Account account) {
-        account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
-        accountRepository.save(account);
-        Role userRole = roleRepository.findByRolename("USER");
-        account.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        accountRepository.save(account);
+    public Account save(Account account) {
+        return accountRepository.save(account);
     }
 
     @Override
     public void deleteById(Integer id) {
         accountRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return accountRepository.existsByUsername(username);
     }
 }
