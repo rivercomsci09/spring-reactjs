@@ -29,6 +29,15 @@ public class Account {
     @OneToMany(mappedBy = "account", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Equipment> equipment = new ArrayList<Equipment>();
 
+    public Account() {
+    }
+
+    public Account(String email, String username, String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
     public int getId() {
         return id;
     }

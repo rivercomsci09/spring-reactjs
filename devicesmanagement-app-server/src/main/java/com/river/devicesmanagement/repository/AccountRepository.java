@@ -14,4 +14,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     @Query("SELECT a.id, a.username, a.email, r.rolename FROM Account a INNER JOIN a.roles r")
     List<Object[]> getAccount();
+
+    boolean existsByUsername(String username);
 }

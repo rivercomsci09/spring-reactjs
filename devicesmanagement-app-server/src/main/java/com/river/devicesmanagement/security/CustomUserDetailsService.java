@@ -12,33 +12,31 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     AccountService accountService;
 
-    @Autowired
-    RoleRepository roleRepository;
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Account> account = accountService.findByUsername(username);
-        if (!account.isPresent()) {
-            throw new UsernameNotFoundException("User not found");
-        }
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-        Set<Role> roles = account.get().getRoles();
-        for (Role role : roles) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRolename()));
-        }
+        Account account = accountService.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User not found with username or email : " + username));
+        return UserPrincipal.create(account);
+    }
 
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(account.get().getUsername(), account.get().getPassword(),
-                true, true, true, true, grantedAuthorities);
-        return userDetails;
+    // This method is used by JWTAuthenticationFilter
+    @Transactional
+    public UserDetails loadUserById(Integer id) {
+        Account account = accountService.findById(id).orElseThrow(
+                () -> new UsernameNotFoundException("User not found with id : " + id)
+        );
+
+        return UserPrincipal.create(account);
     }
 }

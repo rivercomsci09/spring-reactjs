@@ -14,7 +14,9 @@ public interface AccountService {
 
     Optional<Account> findById(int id);
 
-    void save(Account account);
+    Account save(Account account);
 
     void deleteById(Integer id);
+
+    boolean existsByUsername(String username);
 }
