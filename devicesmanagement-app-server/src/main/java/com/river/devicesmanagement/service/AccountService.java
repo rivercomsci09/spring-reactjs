@@ -19,4 +19,8 @@ public interface AccountService {
     void deleteById(Integer id);
 
     boolean existsByUsername(String username);
+
+    Account getOne(Integer id);
+
+    List<Account> findByIdIn(List<Integer> creatorIds);
 }

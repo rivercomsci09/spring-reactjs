@@ -1,6 +1,7 @@
 package com.river.devicesmanagement.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.river.devicesmanagement.model.audit.DateAudit;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "account")
-public class Account {
+public class Account extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
