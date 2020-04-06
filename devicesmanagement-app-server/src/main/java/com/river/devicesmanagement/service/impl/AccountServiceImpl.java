@@ -1,17 +1,13 @@
 package com.river.devicesmanagement.service.impl;
 
 import com.river.devicesmanagement.model.Account;
-import com.river.devicesmanagement.model.Role;
 import com.river.devicesmanagement.repository.AccountRepository;
 import com.river.devicesmanagement.repository.RoleRepository;
 import com.river.devicesmanagement.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,5 +70,15 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean existsByUsername(String username) {
         return accountRepository.existsByUsername(username);
+    }
+
+    @Override
+    public Account getOne(Integer id) {
+        return accountRepository.getOne(id);
+    }
+
+    @Override
+    public List<Account> findByIdIn(List<Integer> creatorIds) {
+        return accountRepository.findByIdIn(creatorIds);
     }
 }
