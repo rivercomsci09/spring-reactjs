@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Card, CardFooter, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { signup } from '../../util/APIUtils';
+import { notification } from 'antd';
+import { Button, Card, CardBody, Col, Container, Form, Input, InputGroup, Row } from 'reactstrap';
 
 class Register extends Component {
     constructor() {
@@ -21,27 +23,30 @@ class Register extends Component {
     }
 
     register = (event) => {
-        fetch('http://localhost:8080/api/accounts', {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: this.state.username,
-                password: this.state.password
-            })
-        }).then((Response) => {
-            if (Response.status == 201)
-                this.props.history.push("/Dashboard");
-            else
-                alert('Sorrrrrry !!!! Un-authenticated User !!!!!')
-        })
+        event.preventDefault();
+        const signupRequest = {
+            email: this.state.email,
+            username: this.state.username,
+            password: this.state.password
+        };
+        signup(signupRequest)
+            .then(response => {
+                notification.success({
+                    message: 'Devices Management App',
+                    description: "Thank you! You're successfully registered. Please Login to continue!",
+                });
+                this.props.history.push("/login");
+            }).catch(error => {
+                notification.error({
+                    message: 'Devices Management App',
+                    description: error.message || 'Sorry! Something went wrong. Please try again!'
+                });
+            });
     }
 
     render() {
         return (
-            <div className="app flex-row align-items-center" style={{marginTop: 50}}>
+            <div className="app flex-row align-items-center" style={{ marginTop: 50 }}>
                 <Container>
                     <Row className="justify-content-center">
                         <Col md="9" lg="7" xl="6">
