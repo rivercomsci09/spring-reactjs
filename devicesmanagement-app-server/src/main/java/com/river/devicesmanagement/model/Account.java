@@ -32,6 +32,11 @@ public class Account {
     public Account() {
     }
 
+    public Account(Integer id, String username) {
+        this.id = id;
+        this.username = username;
+    }
+
     public Account(String email, String username, String password) {
         this.email = email;
         this.username = username;

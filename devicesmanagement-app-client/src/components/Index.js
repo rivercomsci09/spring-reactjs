@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Header from "./public-layout/Header";
 import Footer from "./public-layout/Footer";
 
-const Index = ({ classes }) => {
-    return (
-        <div>
-            <Header></Header>
-            <div id="first-block">
-                <div class="line">
-                    <article class="s-12">Body</article>
-                </div>
+class Index extends Component {
+    render() {
+        return (
+            <div>
+                <Header />
+                <Link to={'/login'} className="nav-link">Login</Link>
+                <Link to={'/register'} className="nav-link">Sign Up</Link>
+                <div>Devices Management App</div>
+                <Footer />
             </div>
-            <Footer></Footer>
-        </div>
-    );
+        )
+    }
+
 };
 
-export default Index
+export default Index;

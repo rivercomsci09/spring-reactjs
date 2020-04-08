@@ -1,11 +1,14 @@
 package com.river.devicesmanagement.controller;
 
 import com.river.devicesmanagement.model.Account;
+import com.river.devicesmanagement.security.CurrentUser;
+import com.river.devicesmanagement.security.UserPrincipal;
 import com.river.devicesmanagement.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -54,5 +57,12 @@ public class AccountController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
+    }
+
+    @GetMapping("/user/me")
+    @PreAuthorize("hasAnyAuthority('USER')")
+    public Account getCurrentUser(@CurrentUser UserPrincipal currentUser) {
+        Account userSummary = new Account(currentUser.getId(), currentUser.getUsername());
+        return userSummary;
     }
 }
