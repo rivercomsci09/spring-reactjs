@@ -70,6 +70,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/api/accounts").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/polls/**", "/api/users/**").permitAll()
                 .antMatchers("/api/**").access("hasAnyAuthority('USER', 'ADMIN')")
+                .antMatchers("/api/equipments/**").access("hasAnyAuthority('ADMIN')")
                 .anyRequest().authenticated();
 //                .and()
 //                .httpBasic();

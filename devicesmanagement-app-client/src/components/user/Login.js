@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, Row } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../../constants';
 import { notification } from 'antd';
 import { login } from '../../util/APIUtils';
@@ -36,8 +36,8 @@ class Login extends Component {
         };
         login(loginRequest)
             .then(response => {
-                localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-                this.props.onLogin();
+                localStorage.setItem(ACCESS_TOKEN, response.jwt.accessToken);
+                this.props.onLogin(response.role[0].authority);
             }).catch(error => {
                 if (error.status === 401) {
                     notification.error({
@@ -51,27 +51,6 @@ class Login extends Component {
                     });
                 }
             });
-        // .then((response) => {
-        //     if (response.ok) {
-        //         response.json().then(json => {
-        //             localStorage.setItem(ACCESS_TOKEN, json.accessToken);
-        //             this.props.history.push("/dashboard");
-        //         });
-        //     } else {
-        //         if (response.status === 401) {
-        //             notification.error({
-        //                 message: 'Polling App',
-        //                 description: 'Your Username or Password is incorrect. Please try again!'
-        //             });
-        //         }
-        //     }
-        // }).catch(error => {
-        //     notification.error({
-        //         message: 'Polling App',
-        //         description: error.message || 'Sorry! Something went wrong. Please try again!'
-        //     });
-
-        // })
     }
 
     render() {

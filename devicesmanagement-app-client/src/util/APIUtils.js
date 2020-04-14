@@ -51,3 +51,17 @@ export function getCurrentUser() {
         method: 'GET'
     });
 }
+
+export function getAllUser() {
+    return request({
+        url: API_BASE_URL + "/accounts",
+        method: 'GET'
+    });
+}
+
+export function deleteUser(id) {
+    return request({
+        url: API_BASE_URL + "/accounts/" + id,
+        method: 'DELETE'
+    });
+}

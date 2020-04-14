@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { ACCESS_TOKEN } from '../../constants';
-import { Layout, notification } from 'antd';
+import { Button} from 'reactstrap';
+
 
 
 class Dashboard extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            hasLoginFailed: false,
+            showSuccessMessage: false
+        }
+
+        // this.onChange = this.onChange.bind(this);
+        this.logout = this.logout.bind(this);
+    }
+
+    logout(event) {
+        event.preventDefault();
+        this.props.onLogout();
+    }
+
     render() {
         return (
             <div>
-                Dasdborad
+                <Button onClick={this.logout} color="success" block>logout</Button>
             </div>
         );
     }

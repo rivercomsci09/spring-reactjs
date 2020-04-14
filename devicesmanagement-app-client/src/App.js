@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Route, Redirect, Switch, Router } from 'react-router-dom';
+import { Route, Redirect, Switch, Router } from 'react-router-dom';
 
 /** Components **/
 import Index from "./components/Index";
 import Register from "./components/user/Register";
 import Login from "./components/user/Login";
 import Dashboard from "./components/user/Dashboard";
+import AdminDashboard from "./components/admin/AdminDashboard";
 import { Layout, notification } from "antd";
 import { getCurrentUser } from './util/APIUtils';
+import { deleteUser } from './util/APIUtils';
 import { ACCESS_TOKEN } from './constants';
 import { history } from './helpers/history';
 
@@ -61,7 +63,7 @@ class App extends Component {
             isAuthenticated: false
         });
 
-        this.props.history.push(redirectTo);
+        history.push(redirectTo);
 
         notification[notificationType]({
             message: 'Devices Management App',
@@ -69,15 +71,24 @@ class App extends Component {
         });
     }
 
-    handleLogin() {
+    handleLogin(role) {
         notification.success({
             message: 'Devices Managements App',
             description: "You're successfully logged in.",
         });
         this.loadCurrentUser();
-        history.push("/");
+        if(role === "USER"){
+            history.push("/dashboard");
+        } else {
+            history.push("/admindashboard");
+        }
+        
     }
 
+    onDelete = (id) => {
+        console.log(id);
+        // deleteUser(id)
+    }
 
     render() {
         return (
@@ -97,8 +108,21 @@ class App extends Component {
                             path="/login"
                             render={(props) => <Login onLogin={this.handleLogin} {...props} isAuthed={true} />}
                         />
-                        {/* <Route path="/login" component={Login} /> */}
-                        <Route path="/dashboard" component={Dashboard} />
+                        <Route
+                            exact
+                            path="/dashboard"
+                            render={(props) => <Dashboard onLogout={this.handleLogout} {...props} />}                        
+                        />
+                        <Route
+                            exact
+                            path="/admindashboard"
+                            render={(props) => <AdminDashboard onLogout={this.handleLogout}  onDelete={this.onDelete} {...props}/>}                        
+                        />
+                        {/* <Route
+                            exact path="/"
+                            render={(props) => <DeviceList isAuthenticated={this.state.isAuthenticated}
+                                currentUser={this.state.currentUser} handleLogout={this.handleLogout} {...props} />}>
+                        </Route> */}
                     </Switch>
                 </Router>
             </Layout>
